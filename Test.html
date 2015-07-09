@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>C# Syntax Highlighter</title>
+		<link rel="stylesheet" type="text/css" href="css/theme-classic.css">
+		<script type="text/javascript" src="js/core v1.0.js"></script>
+		<script type="text/javascript" src="js/dictionary v1.0.js"></script>
+		<script type="text/javascript" src="js/exec test v1.0.js"></script>
+	</head>
+	<body>
+		<textarea id="textarea">
+using System.Text;
+
+public class Teste : Debug, ITeste
+{
+    //Esse eh um comentario simples
+    public static long main(String args[])
+    {
+        try
+        {
+            Cachorro c = new Cachorro(); 
+            Ave a = new Aguia();
+            int i =  Int32.Parse("1");
+/* 
+	Comentario MultiLine 1 
+	Comentario MultiLine 2 
+	Comentario MultiLine 3 
+*/
+            for(i = 0; i < 10 ; i++)
+            {
+                if(i % 2 == 0)
+                    Console.WriteLine(i.ToString());
+                else if(i % 3 == 0)
+                    Console.WriteLine(i.ToString());
+                else
+                    Console.WriteLine(i.ToString());
+            }
+            return i;
+        } 
+        catch(Exception e)
+        {
+            Console.WriteLine("Erro: "+ e.message);
+        }
+    }
+}
+		</textarea>
+		<pre id="csharpcode" class="csharpcode"></pre>
+		<style>
+			#textarea{
+				width:500px;
+				height: 600px;
+			}
+			.csharpcode{
+				position: relative;
+				margin-left: 500px;
+				margin-top: -600px;
+				padding-left: 10px;
+			}
+		</style>
+	</body>
+</html>

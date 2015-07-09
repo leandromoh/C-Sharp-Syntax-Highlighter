@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<title>C# Syntax Highlighter</title>
+		<style type="text/css">
+			.csharp {
+			  background-color: white;
+			  color: black;
+			}
+
+			.readonly, .get, .set, .dynamic, .partial, .internal, .delegate{
+			  color: blue;
+			}
+
+			.namespace, .using {
+			  color: blue;
+			}
+
+			.public, .private, .protected {
+			  color: blue;
+			}
+
+			.class, .new, .static, .this, .interface, .abstract, .override, .return, .const, .var, .unsafe {
+			  color: blue;
+			}
+
+			.true, .false, .string, .double, .int, .decimal, .char, .null, .byte, .bool, .short, .long, .void, .float, .enum {
+			  color: blue;
+			}
+
+			.if, .else, .case, .switch {
+			  color: blue;
+			}
+
+			.do, .while, .for, .foreach, .in, .break, .continue {
+			  color: blue;
+			}
+
+			.try, .throw, .catch, .finally {
+			  color: blue;
+			}
+
+			.className {
+			  color: rgb(43,155,193);
+			}
+
+			.comment {
+			  color: green;
+			}
+
+			.stringText {
+			  color: rgb(200,17,17);
+			}
+
+			.number {
+			  color: rgb(200,17,17);
+			}
+		</style>
+		<script type="text/javascript">
+			var texto;
+			var charEspeciais = "[\\[\\]{}();\\.,!@# $&+\\-*\\/\\\\]";
+			var latEsq = "(^|"+charEspeciais+")";
+			var latDir = "($|"+charEspeciais+")";
+
+			function removeSubSpan(str)
+			{
+				function aaa(str)
+				{
+					var b = str.match(/(>)([^<]+)(<)/gm).map(function(str){return str.replace(">","").replace("<","")}).join('');
+					return new RegExp("<span[^>]*>","g").exec(str)+b+"<\/span>";
+				}
+				return str.replace(/(<span[^>]*>)((.|\n)(?!<\/span>))*?<span[^>]*>(.|\n)*?<\/span>((.|\n)(?!<span[^>]*>))*?(<\/span>)/gm, aaa);
+			}
+
+			function kkk(str)
+			{
+				var regex = new RegExp(latEsq + "(" + str + ")" + latDir,"gm");
+				var rep = "$1<span class='$2'>$2</span>$3";
+				texto = texto.replace(regex, rep).replace(regex, rep);
+			}
+
+			function fff(obj,strClass,isRealClass)
+			{
+				var rep = (isRealClass)? "$1<span class='"+strClass+"'>$2</span>$3" : "<span class='"+strClass+"'>$&</span>";
+				for(i = 0; i < obj.length; i++) 
+					texto = texto.replace(obj[i], rep);
+			}
+
+			function ddd(obj)
+			{			
+				texto = obj.value.replace(/>/g, '&gt;').replace(/</g, '&lt;');
+				
+				fff(_string,"stringText");
+				fff(_className,"className",true);
+				
+				["namespace","using","public","private","protected","static","this","interface","abstract","override","unsafe"].forEach(kkk);
+				["return","if","else","elseif","case","switch","do","while","for","foreach","in","break","continue","try","throw","catch","finally"].forEach(kkk);
+				["const","var","true","false","string","double","int","decimal","char","null","byte","bool","short","long","void","float","enum"].forEach(kkk);
+				
+				fff(_number,"number",true);
+				fff(_comment,"comment");
+				
+				["class","new"].forEach(kkk);
+				
+				document.getElementById("csharp").innerHTML = removeSubSpan(texto).replace('&gt;', '>').replace('&lt;', '<');
+			}
+
+			var _number = new Array();
+			_number.push(new RegExp(latEsq + "(\\d+)" + latDir,"gm"));
+
+			var _string = new Array();
+			_string.push(/'[^']*?'/gi);
+			_string.push(/"[^"]*?"/gi);
+
+			var _comment = new Array();
+			_comment.push(/\/\/.*$/gm);
+			_comment.push(/\/\*[\s\S]*?\*\//gm);
+
+			var _className = new Array();
+			_className.push(/(new +)([A-Z]\w+)( *\()/g); //new PessoaFisica (
+			_className.push(/()([A-Z]\w+)(\.)/g); //PessoaFisica.
+			_className.push(/()([A-Z]\w+)( +\w+ += +new)/g); // PessoaFisica pessoa = new
+			_className.push(/(class +)([A-Z]\w+)()/g); //class PessoaFisica
+			_className.push(/(\( *)([A-Z]\w+)()/g); //( PessoaFisica
+		</script>
+	</head>
+	<body>
+		<textarea id="textarea" onkeyup="ddd(this)">
+using System.Text;
+
+public class Teste : Debug, ITeste
+{
+    //Esse eh um comentario simples
+    public static long main(String args[])
+    {
+        try
+        {
+            Cachorro c = new Cachorro(); 
+            Ave a = new Aguia();
+            int i =  Int32.Parse("1");
+/* 
+	Comentario MultiLine 1 
+	Comentario MultiLine 2 
+	Comentario MultiLine 3 
+*/
+            for(i = 0; i < 10 ; i++)
+            {
+                if(i % 2 == 0)
+                    Console.WriteLine(i.ToString());
+                else if(i % 3 == 0)
+                    Console.WriteLine(i.ToString());
+                else
+                    Console.WriteLine(i.ToString());
+            }
+            return i;
+        } 
+        catch(Exception e)
+        {
+            Console.WriteLine("Erro: "+ e.message);
+        }
+    }
+}
+		</textarea>
+		<pre id="csharp" class="csharp"></pre>
+		<style>
+			#textarea{
+				width:500px;
+				height: 600px;
+			}
+			.csharp{
+				position: relative;
+				margin-left: 500px;
+				margin-top: -600px;
+			}
+		</style>
+		<script>
+			document.getElementById("textarea").onkeyup();
+
+			var spaces = "    ";
+			var textareas = document.getElementsByTagName('textarea');
+			var count = textareas.length;
+			for(var i=0;i<count;i++){
+				textareas[i].onkeydown = function(e){
+					if(e.keyCode==9 || e.which==9){
+						e.preventDefault();
+						var s = this.selectionStart;
+						this.value = this.value.substring(0,this.selectionStart) + spaces + this.value.substring(this.selectionEnd);
+						this.selectionEnd = s + spaces.length; 
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

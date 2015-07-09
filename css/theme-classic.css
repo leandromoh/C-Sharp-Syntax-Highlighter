@@ -1,0 +1,42 @@
+.csharpcode {
+	background-color: white;
+	font-family: Consolas, "Courier New", Courier, Monospace;
+	font-size: 14px;
+	color: black;
+}
+
+.keyword{
+	color: blue;
+}
+
+.type{
+	color: blue;
+}
+
+.modifier{
+	color: blue;
+}
+
+.statement{
+	color: blue;
+}
+
+.query{
+	color: blue;
+}
+
+.className {
+  color: rgb(43,155,193);
+}
+
+.comment {
+  color: green;
+}
+
+.stringText {
+  color: rgb(200,17,17);
+}
+
+.number {
+  color: rgb(200,17,17);
+}

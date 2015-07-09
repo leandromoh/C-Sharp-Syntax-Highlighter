@@ -1,4 +1,4 @@
-# C-Sharp-Syntax-Highlighter-master
+# C-Sharp-Syntax-Highlighter
 
 Para usar o syntaxe-highlighter basta colocar o codigo c# dentro de uma tag pre com class igual a "csharpcode", como no exemplo abaixo:
 <pre>

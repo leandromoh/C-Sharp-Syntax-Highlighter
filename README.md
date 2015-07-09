@@ -2,7 +2,7 @@
 
 Para usar o syntaxe-highlighter basta colocar o codigo c# dentro de uma tag pre com class igual a "csharpcode", como no exemplo abaixo:
 <pre>
-&lt;pre class="csharpcode"&gt;\n
+&lt;pre class="csharpcode"&gt;
     public class Class1
     {
         public int Method1(string input)

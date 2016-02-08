@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	pre = document.getElementById("csharpcode");
 	
 	textarea.setAttribute("onkeyup","uuu(this)");
-	pre.setAttribute("onclick","ddd(this)");
+	pre.setAttribute("onclick","applySyntaxHighlighter(this)");
 
 	textarea.onkeyup();
 	

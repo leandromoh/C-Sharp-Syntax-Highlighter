@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+.red{
+ color: red;
+ font-weight: bold;
+}
+</style>
+</head>
+<body>
+<pre id="pre">
+public class DataService : IDataService, Bola, IRolita
+{
+
+}
+
+public class DataService : Cachorro IDataService, Bola, CuA IRolita
+{
+
+}
+</pre>
+
+<script>
+var body = document.body;
+
+function filter(reg2, text, newVal){
+	var reg = reg2.slice(0);
+	switch(reg.length){
+		case 0:
+			return text;
+		case 1:
+			return text.replace(reg[0], newVal);
+		default:
+			var matches = text.match(reg.shift());
+			for(var i = 0; i < matches.length; i++)
+				text = text.replace(matches[i], filter(reg, matches[i], newVal));
+			return text;
+    }
+}
+
+var p = [];
+p.push(/class\s+\w+\s*:\s*.+$/gm);
+p.push(/:.+/g);
+p.push(/\b[A-HJ-Z]\w+\b/g);
+p.push(/[aA]/g);
+debugger;
+var pre = document.getElementById("pre");
+pre.innerHTML = filter(p, pre.innerHTML, function(el){
+  return '<span class="red">'+el.toUpperCase()+'</span>';
+});
+</script>
+</body>
+</html>
